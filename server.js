@@ -20,12 +20,15 @@ function startapp(){
             console.log(choice)
             if(choice.roles==="all departments"){
               viewdpt()
+              askAgain()
             }
             else if(choice.roles==="all roles"){
               viewRoles()
+              askAgain()
             }
             else if(choice.roles==="all employees"){
               viewEmp()
+              askAgain()
             }
            
           })
@@ -51,5 +54,20 @@ function viewEmp(){
   })
 }
 
+async function askAgain(){
+await inquirer 
+  .prompt ([
+    {
+      type: "confirm",
+      name: "again",
+      message: "Would you like to see the menu?",
 
+    }
+  ])
+ .then (ANS =>{
+    if (ANS.again){
+      startapp()
+    }
+  })
+}
 startapp()
