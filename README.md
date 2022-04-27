@@ -20,11 +20,7 @@
             message: 'Employee first name?',
             name: 'first_name',
           },
-          {
-            type: 'input',
-            message: 'Employee last name?',
-            name: 'last_name',
-          },
+          
           {
             type: 'input',
             message: "What is the employee's role ID?",

@@ -11,13 +11,12 @@ function startapp(){
       .prompt([
           {
               type: 'list',
-              message: 'What would you like today?',
+              message: 'What would you like to do today?',
               name: 'roles',
               choices: ["all departments", "all roles", "all employees", "add department", "add role", "add employee", "exit"]
             },  
           ])
           .then (choice => {
-            console.log(choice)
             if(choice.roles==="all departments"){
               viewdpt()
               askAgain()
@@ -30,7 +29,36 @@ function startapp(){
               viewEmp()
               askAgain()
             }
-           
+          // .then (answer => {
+          //     console.info('answer', answer)
+            
+          //   })
+          //   // askAgain()
+          // }         
+          })
+          .then((answer) => {
+            return inquirer
+            .prompt([
+                {
+                    type: 'input',
+                    message: 'What happens here',
+                    name: 'title',
+                  },  
+                  {
+                    type: 'input',
+                    message: 'What happens here 2',
+                    name: 'salary',
+                  },  
+                  {
+                    type: 'input',
+                    message: 'What happens here 3',
+                    name: 'deptId',
+                  },  
+                ])
+                .then((answer) => {
+                  console.log('this is my answer', answer)
+                    addRole(answer)
+                })
           })
 }
 function viewdpt(){
@@ -54,14 +82,21 @@ function viewEmp(){
   })
 }
 
+function addRole(choice){
+  const sql = `INSERT INTO ROLES(title, salary, department_id) VALUES (${choice.title}, ${choice.salary}, ${choice.deptId})`; 
+  db.query (sql,(error, res)=>{
+    console.table(res)
+  })
+
+}
+
 async function askAgain(){
 await inquirer 
   .prompt ([
     {
       type: "confirm",
       name: "again",
-      message: "Would you like to see the menu?",
-
+      message: "Would you like to see the menu, again?",
     }
   ])
  .then (ANS =>{
