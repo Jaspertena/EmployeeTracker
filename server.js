@@ -17,15 +17,15 @@ function startapp(){
             },  
           ])
           .then (choice => {
-            if(choice.roles==="all departments"){
+            if(choice.roles==="View all departments"){
               viewdpt()
               askAgain()
             }
-            else if(choice.roles==="all roles"){
+            else if(choice.roles==="View all roles"){
               viewRoles()
               askAgain()
             }
-            else if(choice.roles==="all employees"){
+            else if(choice.roles==="View all employees"){
               viewEmp()
               askAgain()
             }
@@ -41,17 +41,17 @@ function startapp(){
             .prompt([
                 {
                     type: 'input',
-                    message: 'What happens here',
+                    message: 'What is the title for the new Role? ',
                     name: 'title',
                   },  
                   {
                     type: 'input',
-                    message: 'What happens here 2',
+                    message: 'What is the starting salary?',
                     name: 'salary',
                   },  
                   {
                     type: 'input',
-                    message: 'What happens here 3',
+                    message: 'What is the DepartmentID for this new role?',
                     name: 'deptId',
                   },  
                 ])
@@ -86,7 +86,14 @@ function addRole(choice){
   const sql = `INSERT INTO ROLES(title, salary, department_id) VALUES (${choice.title}, ${choice.salary}, ${choice.deptId})`; 
   db.query (sql,(error, res)=>{
     console.table(res)
-  })
+}})
+
+
+  function addDpt(choice){
+    const sql = `INSERT INTO ROLES(title, salary, department_id) VALUES (${choice.title}, ${choice.salary}, ${choice.deptId})`; 
+    db.query (sql,(error, res)=>{
+      console.table(res)
+    })
 
 }
 
