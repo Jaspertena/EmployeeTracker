@@ -13,7 +13,7 @@ function startapp(){
               type: 'list',
               message: 'What would you like to do today?',
               name: 'roles',
-              choices: ["all departments", "all roles", "all employees", "add department", "add role", "add employee", "exit"]
+              choices: ["View all departments", "View all roles", "View all employees", "add department", "add role", "add employee", "exit"]
             },  
           ])
           .then (choice => {
@@ -29,12 +29,6 @@ function startapp(){
               viewEmp()
               askAgain()
             }
-          // .then (answer => {
-          //     console.info('answer', answer)
-            
-          //   })
-          //   // askAgain()
-          // }         
           })
           .then((answer) => {
             return inquirer
@@ -61,6 +55,8 @@ function startapp(){
                 })
           })
 }
+
+
 function viewdpt(){
   const sql = `SELECT * FROM DPT`;
   db.query (sql,(error, res)=>{
@@ -86,15 +82,14 @@ function addRole(choice){
   const sql = `INSERT INTO ROLES(title, salary, department_id) VALUES (${choice.title}, ${choice.salary}, ${choice.deptId})`; 
   db.query (sql,(error, res)=>{
     console.table(res)
-}})
-
+  })
+}
 
   function addDpt(choice){
-    const sql = `INSERT INTO ROLES(title, salary, department_id) VALUES (${choice.title}, ${choice.salary}, ${choice.deptId})`; 
+    const sql = `INSERT INTO DPT(management, sales, accounting, HR) VALUES (${choice.management}, ${choice.sales}, ${choice.accounting}, ${choice.HR})`; 
     db.query (sql,(error, res)=>{
       console.table(res)
     })
-
 }
 
 async function askAgain(){
