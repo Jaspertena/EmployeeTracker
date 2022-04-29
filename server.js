@@ -19,43 +19,101 @@ function startapp(){
           .then (choice => {
             if(choice.roles==="View all departments"){
               viewdpt()
-              askAgain()
+              // askAgain()
             }
             else if(choice.roles==="View all roles"){
               viewRoles()
-              askAgain()
+              // askAgain()
             }
             else if(choice.roles==="View all employees"){
               viewEmp()
-              askAgain()
+              // askAgain()
+            }
+            else if(choice.roles==="add department"){
+              enterDpt()
+              // askAgain()
+            }
+            else if(choice.roles==="add employee"){
+              enterEmp()
+              // askAgain()
+            }
+            else if(choice.roles==="add role"){
+              enterRole()
+              // askAgain()
+            }
+            else if(choice.roles==="Exit"){
+              quit()
             }
           })
-          .then((answer) => {
-            return inquirer
-            .prompt([
-                {
-                    type: 'input',
-                    message: 'What is the title for the new Role? ',
-                    name: 'title',
-                  },  
-                  {
-                    type: 'input',
-                    message: 'What is the starting salary?',
-                    name: 'salary',
-                  },  
-                  {
-                    type: 'input',
-                    message: 'What is the DepartmentID for this new role?',
-                    name: 'deptId',
-                  },  
-                ])
-                .then((answer) => {
-                  console.log('this is my answer', answer)
-                    addRole(answer)
-                })
-          })
+
+          
+          
+}
+// .then((answer) => {
+//             return inquirer
+//             .prompt([
+//                 {
+//                     type: 'input',
+//                     message: 'What is the title for the new Role? ',
+//                     name: 'title',
+//                   },  
+//                   {
+//                     type: 'input',
+//                     message: 'What is the starting salary?',
+//                     name: 'salary',
+//                   },  
+//                   {
+//                     type: 'input',
+//                     message: 'What is the DepartmentID for this new role?',
+//                     name: 'deptId',
+//                   },  
+//                 ])
+          //       .then((answer) => {
+          //         console.log('this is my answer', answer)
+          //           addRole(answer)
+          //       })
+          // })
+function enterRole(){
+  return inquirer
+  .prompt([
+      {
+          type: 'input',
+          message: 'What is the title for the new Role? ',
+          name: 'title',
+        },  
+        {
+          type: 'input',
+          message: 'What is the starting salary?',
+          name: 'salary',
+        },  
+        {
+          type: 'input',
+          message: 'What is the DepartmentID for this new role?',
+          name: 'deptId',
+        },  
+      ])
 }
 
+function enterEmp(){
+  return inquirer
+  .prompt([
+      {
+          type: 'input',
+          message: 'What is the title for the new Role? ',
+          name: 'title',
+        },  
+        {
+          type: 'input',
+          message: 'What is the starting salary?',
+          name: 'salary',
+        },  
+        {
+          type: 'input',
+          message: 'What is the DepartmentID for this new role?',
+          name: 'deptId',
+        },  
+      ])
+}
 
 function viewdpt(){
   const sql = `SELECT * FROM DPT`;
@@ -86,10 +144,17 @@ function addRole(choice){
 }
 
   function addDpt(choice){
-    const sql = `INSERT INTO DPT(management, sales, accounting, HR) VALUES (${choice.management}, ${choice.sales}, ${choice.accounting}, ${choice.HR})`; 
+    const sql = `INSERT INTO DPT(Department) VALUES (${choice.management})`; 
     db.query (sql,(error, res)=>{
       console.table(res)
     })
+}
+
+function addEmpt(choice){
+  const sql = `INSERT INTO EMPLOYEE(first_name, last_name, role_id, manager_id) VALUES (${choice.first_name}, ${choice.last_name}, ${choice.role_id}, ${choice.manager_id})`; 
+  db.query (sql,(error, res)=>{
+    console.table(res)
+  })
 }
 
 async function askAgain(){
